@@ -1,7 +1,7 @@
 
 import requests
 import time
-from apikey import getkey
+from HypixelSkyblock.apikey import getkey
 
 
 
