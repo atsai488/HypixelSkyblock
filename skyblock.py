@@ -1,6 +1,7 @@
 
 import requests
 import time
+from apikey import getkey
 
 
 
@@ -19,7 +20,7 @@ def skyblockProfile(player_name):
         player_uuid = requests.get(url = 'https://api.mojang.com/users/profiles/minecraft/' + player_name).json()['id']
 
         params = {
-                "key": "18c9cd38-51eb-4b40-a4d5-7bb9510dd9de",
+                "key": getkey(),
                 "profile": player_uuid
             }
 
