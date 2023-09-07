@@ -16,7 +16,7 @@ profileList = []
 
 def individualProfile(choice):
     profileNum = choice[8:9]
-    players = choice[11:len(choice)-1]
+    players = choice[10:len(choice)-1]
     clearScreen()
     
     title = customtkinter.CTkLabel(app, text="Profile: " + profileNum)
@@ -24,7 +24,13 @@ def individualProfile(choice):
     
     playerNames = customtkinter.CTkLabel(app, text = players)
     playerNames.pack(padx = 10)
-    getPlayerMoney(data)
+    profileNum = int(profileNum)
+    moneybal = getPlayerMoney(data, profileNum)
+    money = customtkinter.CTkLabel(app, text = getPlayerMoney(data, moneybal))
+    money.pack(padx = 10)
+    
+    
+    
     back = customtkinter.CTkButton(app, text="Back", command = setUp)
     back.pack()
     

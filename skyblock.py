@@ -1,16 +1,10 @@
 
 import requests
 import time
-from HypixelSkyblock.apikey import getkey
 
 
 
 def skyblockMates(profile):
-    print(profile.keys())
-    if (profile == None or profile['profile'] == None):
-            print("No profile available/Error loading profile")
-            return
-        
     return uuidToUser(profile)
     
         
@@ -18,14 +12,14 @@ def skyblockMates(profile):
 def skyblockProfile(player_name):
     try:
         player_uuid = requests.get(url = 'https://api.mojang.com/users/profiles/minecraft/' + player_name).json()['id']
-
+        print(player_uuid)
         params = {
-                "key": getkey(),
-                "profile": player_uuid
+                "key": "031a6abf-cc50-4047-bf9a-b03d54978144",
+                "uuid": player_uuid
             }
 
         data = requests.get(
-            url = "https://api.hypixel.net/skyblock/profile", params=params).json()
+            url = "https://api.hypixel.net/skyblock/profiles", params=params).json()
         return data
     except KeyError:
         print('Invalid Username')
@@ -35,12 +29,12 @@ def uuidToUser(data):
     try:
         profiles = []
         
-        for num in range(len(data['profile'])): #for each profile
+        for num in range(len(data['profiles'])): #for each profile
             
-            uuids = list((data['profile'][num]['members']).keys())
+            uuids = list((data['profiles'][num]['members']).keys())
             #print("\n")
             #print("On your {number} profile, the members on your skyblock island are:".format(number = num+1))
-            nameList = "Profile " + (str)(num+1) + ": "
+            nameList = "Profile " + str(num + 1) + " " + data['profiles'][num]['cute_name'] + ": "
             for uuid in uuids: #for each player in profile
                 result = requests.get( url = 'https://api.mojang.com/user/profile/' + uuid).json()
                 #print(result['name'], end=" ")
@@ -55,5 +49,10 @@ def uuidToUser(data):
         profiles.append(nameList)
         return profiles
 
-def getPlayerMoney(file):
-    print(file['profiles'][0].keys())
+def getPlayerMoney(file, profileNum):
+    try:
+        profileNum = int(profileNum)
+        return file['profiles'][profileNum]['banking']['balance']
+    except KeyError:
+        return "No banking information"
+    
