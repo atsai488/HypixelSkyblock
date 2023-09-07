@@ -24,9 +24,9 @@ def individualProfile(choice):
     
     playerNames = customtkinter.CTkLabel(app, text = players)
     playerNames.pack(padx = 10)
-    profileNum = int(profileNum)
+    profileNum = int(profileNum) - 1
     moneybal = getPlayerMoney(data, profileNum)
-    money = customtkinter.CTkLabel(app, text = getPlayerMoney(data, moneybal))
+    money = customtkinter.CTkLabel(app, text = moneybal)
     money.pack(padx = 10)
     
     

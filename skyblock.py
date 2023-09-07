@@ -12,7 +12,6 @@ def skyblockMates(profile):
 def skyblockProfile(player_name):
     try:
         player_uuid = requests.get(url = 'https://api.mojang.com/users/profiles/minecraft/' + player_name).json()['id']
-        print(player_uuid)
         params = {
                 "key": "031a6abf-cc50-4047-bf9a-b03d54978144",
                 "uuid": player_uuid
@@ -55,4 +54,6 @@ def getPlayerMoney(file, profileNum):
         return file['profiles'][profileNum]['banking']['balance']
     except KeyError:
         return "No banking information"
+    
+
     
